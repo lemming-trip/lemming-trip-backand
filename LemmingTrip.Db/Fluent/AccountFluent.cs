@@ -27,7 +27,7 @@ public static class AccountFluent
             account
                 .Property(p => p.AccountId)
                 .HasColumnType("uuid")
-                .HasDefaultValueSql("uuid_generate_v4()")
+                .HasDefaultValueSql("gen_random_uuid()")
                 .IsRequired()
                 .HasComment("Идентификатор");
 

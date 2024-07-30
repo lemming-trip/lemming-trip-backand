@@ -23,7 +23,7 @@ public static class UserFluent
                 .Property(p => p.UserId)
                 .HasColumnName("user_id")
                 .HasColumnType("uuid")
-                .HasDefaultValueSql("uuid_generate_v4()")
+                .HasDefaultValueSql("gen_random_uuid()")
                 .IsRequired()
                 .HasComment("Идентификатор");
             

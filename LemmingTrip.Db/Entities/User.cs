@@ -59,4 +59,9 @@ public class User
     /// Связь с таблицей аккаунта
     /// </summary>
     public Account Account { get; set; } = null!;
+
+    /// <summary>
+    /// Связь с таблицей Trip
+    /// </summary>
+    public ICollection<Trip> Trips { get; } = new List<Trip>();
 }
