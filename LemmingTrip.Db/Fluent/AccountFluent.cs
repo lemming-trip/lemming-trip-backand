@@ -48,19 +48,19 @@ public static class AccountFluent
                 .HasColumnType("integer")
                 .IsRequired()
                 .HasComment("Salt (for password hashing)");
-            
+
             account
                 .Property(a => a.IsActive)
                 .HasColumnType("bool")
                 .IsRequired()
                 .HasComment("Is account active or not");
-            
+
             account
                 .Property(a => a.ActivationCode)
                 .HasColumnType("uuid")
                 .IsRequired()
                 .HasComment("Activation code. Send by email and accepted by user");
-            
+
             account
                 .Property(a => a.RegistrationDate)
                 .HasColumnName("registration_date")
