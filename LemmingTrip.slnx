@@ -4,7 +4,10 @@
     <File Path="README.md" />
     <File Path="nuget.config" />
     <File Path="lemming-trip.jpg" />
+    <File Path="compose.yaml" />
+    <File Path=".dockerignore" />
   </Folder>
   <Project Path="LemmingTrip.Common/LemmingTrip.Common.csproj" />
   <Project Path="LemmingTrip.Db/LemmingTrip.Db.csproj" />
+  <Project Path="LemmingTrip.Grpc.Services\LemmingTrip.Grpc.Services.csproj" Type="Classic C#" />
 </Solution>
