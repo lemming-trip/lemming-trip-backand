@@ -1,52 +1,52 @@
 namespace LemmingTrip.Db.Entities;
 
 /// <summary>
-/// Сообщения для откликов на путешествие
+/// Message in reply to trip
 /// </summary>
 public class TripReplyMessage
 {
     /// <summary>
-    /// Идентификатор
+    /// Trip reply message id
     /// </summary>
     public Guid TripReplyMessageId { get; set; }
 
     /// <summary>
-    /// Идентификатор отклика на путешествие
+    /// Identifier of the reply to the trip
     /// </summary>
     public Guid TripReplyId { get; set; }
 
     /// <summary>
-    /// Идентификатор пользователя, который отправил сообщение
+    /// User id
     /// </summary>
     public Guid UserId { get; set; }
 
     /// <summary>
-    /// Текст сообщения
+    /// Message text
     /// </summary>
     public string Text { get; set; } = null!;
 
     /// <summary>
-    /// Изображения
+    /// Images
     /// </summary>
     public IList<string>? Images { get; set; }
 
     /// <summary>
-    /// Дата создания
+    /// Creation date
     /// </summary>
     public DateTime CreatedDateTime { get; set; }
 
     /// <summary>
-    /// Статус сообщения. Прочитано или нет
+    /// Message status. Read or unread
     /// </summary>
     public bool IsRead { get; set; }
 
     /// <summary>
-    /// Связь с таблицей User
+    /// Relationship with the User table
     /// </summary>
     public User User { get; set; } = null!;
 
     /// <summary>
-    /// Связь с таблицей TripReply
+    /// Relationship with the TripReply table
     /// </summary>
     public TripReply TripReply { get; set; } = null!;
 }

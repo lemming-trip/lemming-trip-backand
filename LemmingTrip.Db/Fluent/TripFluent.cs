@@ -4,83 +4,83 @@ using Microsoft.EntityFrameworkCore;
 namespace LemmingTrip.Db.Fluent;
 
 /// <summary>
-/// Настройка таблицы Trip
+/// Trip table settings
 /// </summary>
 public static class TripFluent
 {
     /// <summary>
-    /// Настройки
+    /// Settings for Trip table
     /// </summary>
-    /// <param name="modelBuilder">Билдер</param>
+    /// <param name="modelBuilder">Builder</param>
     /// <returns></returns>
     public static ModelBuilder Trip(this ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Trip>(trip =>
         {
-            trip.ToTable(t => t.HasComment("Путешествие"));
+            trip.ToTable(t => t.HasComment("Trip"));
 
             trip
-                .Property(p => p.TripId)
+                .Property(p => p.Id)
                 .HasColumnName("trip_id")
                 .HasColumnType("uuid")
                 .HasDefaultValueSql("gen_random_uuid()")
                 .IsRequired()
-                .HasComment("Идентификатор");
+                .HasComment("Identifier");
 
             trip
                 .Property(p => p.Title)
                 .IsRequired()
-                .HasComment("Заголовок. Название путешествия.");
+                .HasComment("Title. Name of the trip");
 
             trip
                 .Property(p => p.Text)
-                .HasComment("Описание");
+                .HasComment("Description of the trip");
 
             trip
                 .Property(p => p.Images)
-                .HasComment("Изображения");
+                .HasComment("Trip images");
 
             trip
                 .Property(p => p.VideoLink)
-                .HasComment("Ссылка на видео");
+                .HasComment("Video link");
 
             trip
                 .Property(p => p.Route)
-                .HasComment("Маршрут на карте");
+                .HasComment("Route on a map");
 
             trip.Property(p => p.Rating)
                 .IsRequired()
-                .HasComment("Рейтинг путешествия");
+                .HasComment("Trip rating");
 
             trip.Property(p => p.Likes)
                 .IsRequired()
-                .HasComment("Лайки");
+                .HasComment("Likes count");
 
             trip
                 .Property(p => p.TripType)
                 .HasConversion<string>()
                 .HasColumnType("varchar")
                 .IsRequired()
-                .HasComment("Тип путешествия");
+                .HasComment("Type of trip");
 
             trip
                 .Property(p => p.TripSearchType)
                 .HasConversion<string>()
                 .HasColumnType("varchar")
                 .IsRequired()
-                .HasComment("Тип поиска для путешествия");
+                .HasComment("Type search of trip");
 
             trip.HasOne(p => p.User)
                 .WithMany(p => p.Trips)
                 .HasForeignKey(p => p.UserId)
                 .IsRequired()
-                .HasConstraintName("Связь между таблицами User и Trip. Один ко многим.");
+                .HasConstraintName("Relationship between Trip and User tables. One to many.");
             
             trip
                 .HasMany(p=> p.TripReplies)
                 .WithOne(p=>p.Trip)
                 .HasForeignKey(p=>p.TripId)
-                .HasConstraintName("Связь между таблицами Trip и TripReplies. Один ко многим.");
+                .HasConstraintName("Relationship between Trip and TripReply tables. One to many.");
         });
 
         return modelBuilder;

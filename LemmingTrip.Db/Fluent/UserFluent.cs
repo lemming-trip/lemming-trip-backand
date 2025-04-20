@@ -4,20 +4,20 @@ using Microsoft.EntityFrameworkCore;
 namespace LemmingTrip.Db.Fluent;
 
 /// <summary>
-/// Настройки таблицы User
+/// User table settings
 /// </summary>
 public static class UserFluent
 {
     /// <summary>
-    /// Настройки
+    /// Settings for User table
     /// </summary>
-    /// <param name="modelBuilder">Билдер</param>
+    /// <param name="modelBuilder">Builder</param>
     /// <returns></returns>
     public static ModelBuilder User(this ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>(user =>
         {
-            user.ToTable(t => { t.HasComment("Пользователь"); });
+            user.ToTable(t => { t.HasComment("User"); });
 
             user
                 .Property(p => p.UserId)
@@ -25,50 +25,50 @@ public static class UserFluent
                 .HasColumnType("uuid")
                 .HasDefaultValueSql("gen_random_uuid()")
                 .IsRequired()
-                .HasComment("Идентификатор");
+                .HasComment("Id of user");
             
             user
                 .Property(a => a.Avatar)
                 .HasColumnName("avatar")
                 .HasColumnType("varchar")
-                .HasComment("Аватар (картинка)");
+                .HasComment("Avatar (Image)");
             
             user
                 .Property(a => a.Phone)
                 .HasColumnName("phone")
                 .HasColumnType("varchar")
-                .HasComment("Телефон");
+                .HasComment("Phone");
             
             user
                 .Property(a => a.Address)
                 .HasColumnName("address")
                 .HasColumnType("varchar")
-                .HasComment("Адрес");
+                .HasComment("Address");
             
             user
                 .Property(p => p.FirstName)
                 .HasColumnType("varchar")
-                .HasComment("Фамилия");
+                .HasComment("First name");
             
             user
                 .Property(p => p.LastName)
                 .HasColumnType("varchar")
-                .HasComment("Имя");
+                .HasComment("Last name");
             
             user
                 .Property(p => p.MiddleName)
                 .HasColumnType("varchar")
-                .HasComment("Отчество");
+                .HasComment("Middle name");
             
             user
                 .Property(p => p.DateBirth)
-                .HasComment("Дата рождения");
+                .HasComment("Birth date");
             
             user
                 .Property(a => a.Description)
                 .HasColumnName("description")
                 .HasColumnType("text")
-                .HasComment("Описание");
+                .HasComment("Description");
 
         });
 

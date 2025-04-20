@@ -3,52 +3,52 @@ using LemmingTrip.Db.Entities.Base;
 namespace LemmingTrip.Db.Entities;
 
 /// <summary>
-/// Аккаунт пользователя
+/// User's account
 /// </summary>
 public class Account
 {
     /// <summary>
-    /// Идентификатор аккаунта
+    /// User's account id
     /// </summary>
-    public Guid AccountId { get; set; }
+    public Guid Id { get; set; }
 
     /// <summary>
-    /// Почтовый адрес
+    /// Email address
     /// </summary>
     public string Email { get; set; } = null!;
 
     /// <summary>
-    /// Пароль (зашифрован)
+    /// Password (encrypted)
     /// </summary>
     public string Password { get; set; } = null!;
 
     /// <summary>
-    /// Соль, первичная. К этой соли подмешивается специальный код.
+    /// Solt (for password hashing)
     /// </summary>
     public int Salt { get; set; }
 
     /// <summary>
-    /// Роль аккаунта пользователя
+    /// User's account role
     /// </summary>
     public AccountRole AccountRole { get; set; }
     
     /// <summary>
-    /// Активен ли аккаунт
+    /// Is account active
     /// </summary>
     public bool IsActive { get; set; }
 
     /// <summary>
-    /// Код активации. Отправляется по email для подтверждения регистрации.
+    /// Activation code
     /// </summary>
     public Guid ActivationCode { get; set; }
     
     /// <summary>
-    /// Дата регистрации
+    /// Registration date
     /// </summary>
     public DateTime RegistrationDate { get; set; }
 
     /// <summary>
-    /// Связь с таблицей User
+    /// Relationship with User table
     /// </summary>
     public User? User { get; set; }
 }

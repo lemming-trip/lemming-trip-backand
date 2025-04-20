@@ -4,77 +4,77 @@ using NetTopologySuite.Geometries;
 namespace LemmingTrip.Db.Entities;
 
 /// <summary>
-/// Путешествие
+/// Trip
 /// </summary>
 public class Trip
 {
     /// <summary>
-    /// Идентификатор путешествия
+    /// Trip id
     /// </summary>
-    public Guid TripId { get; set; }
+    public Guid Id { get; set; }
 
     /// <summary>
-    /// Идентификатор пользователя
+    /// User id
     /// </summary>
     public Guid UserId { get; set; }
 
     /// <summary>
-    /// Заголовок
+    /// Trip title
     /// </summary>
     public string Title { get; set; } = null!;
 
     /// <summary>
-    /// Описание
+    /// Trim text
     /// </summary>
     public string? Text { get; set; }
 
     /// <summary>
-    /// Титульное изображение
+    /// Trip title image
     /// </summary>
     public string? TitleImage { get; set; }
 
     /// <summary>
-    /// Дополнительные изображения
+    /// Addtional trip images
     /// </summary>
     public IList<string>? Images { get; set; }
 
     /// <summary>
-    /// Ссылка на видео
+    /// Video link
     /// </summary>
     public string? VideoLink { get; set; }
 
     /// <summary>
-    /// Координаты маршрута
+    /// Route coordinates
     /// </summary>
     public Geometry? Route { get; set; }
 
     /// <summary>
-    /// Рейтинг
+    /// Trip rating
     /// </summary>
     public int Rating { get; set; }
 
     /// <summary>
-    /// Лайки
+    /// Likes count
     /// </summary>
     public int Likes { get; set; }
 
     /// <summary>
-    /// Тип тура
+    /// Trip's type
     /// </summary>
     public TripType TripType { get; set; }
 
     /// <summary>
-    /// Тип поиска для путешествия. Кого ищу.
+    /// Trip's search type
     /// </summary>
     public TripSearchType TripSearchType { get; set; }
     
     /// <summary>
-    /// Связь с таблицей User
+    /// Relationship with User table
     /// </summary>
     public User User { get; set; } = null!;
 
     /// <summary>
-    /// Связь с таблицей TripReply
+    /// Relationship with TripLike table
     /// </summary>
     public IList<TripReply>? TripReplies { get; set; }
 }

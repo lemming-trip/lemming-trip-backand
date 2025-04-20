@@ -2,20 +2,20 @@
 namespace LemmingTrip.Db.Entities.Base;
 
 /// <summary>
-/// Тип поиска для путешествия
+/// Type of trip search
 /// </summary>
 public enum TripSearchType
 {
     /// <summary>
-    /// Ищу команду
+    /// Find a team
     /// </summary>
     Team,
     /// <summary>
-    /// Ищу гида
+    /// Find a guide
     /// </summary>
     Guide,
     /// <summary>
-    /// Ищу спонсора
+    /// Find a sponsor
     /// </summary>
     Sponsor
 }

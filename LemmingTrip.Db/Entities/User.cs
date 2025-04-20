@@ -1,67 +1,67 @@
 namespace LemmingTrip.Db.Entities;
 
 /// <summary>
-/// Пользователь
+/// User
 /// </summary>
 public class User
 {
     /// <summary>
-    /// Идентификатор пользователя
+    /// User id
     /// </summary>
     public Guid UserId { get; set; }
 
     /// <summary>
-    /// Аватар (картинка)
+    /// Avatar image
     /// </summary>
     public string? Avatar { get; set; }
 
     /// <summary>
-    /// Телефон
+    /// Phone
     /// </summary>
     public string? Phone { get; set; }
 
     /// <summary>
-    /// Город
+    /// City
     /// </summary>
     public string? City { get; set; }
 
     /// <summary>
-    /// Адрес
+    /// Address
     /// </summary>
     public string? Address { get; set; }
     
     /// <summary>
-    /// Фамилия
+    /// First name
     /// </summary>
     public string? FirstName { get; set; }
 
     /// <summary>
-    /// Имя
+    /// Last name
     /// </summary>
     public string? LastName { get; set; }
 
     /// <summary>
-    /// Отчество
+    /// Middle name
     /// </summary>
     public string? MiddleName { get; set; }
 
     /// <summary>
-    /// Дата рождения
+    /// Date of birth
     /// </summary>
     public DateTime? DateBirth { get; set; }
 
     /// <summary>
-    /// Описание
+    /// Description
     /// </summary>
     public string? Description { get; set; }
 
     /// <summary>
-    /// Связь с таблицей аккаунта
+    /// Relationship with the Account table
     /// </summary>
     public Account Account { get; set; } = null!;
 
     /// <summary>
-    /// Связь с таблицей Trip
+    /// Relationship with the Trip table
     /// </summary>
     public ICollection<Trip> Trips { get; } = new List<Trip>();
 }

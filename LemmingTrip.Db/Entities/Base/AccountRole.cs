@@ -1,22 +1,20 @@
 namespace LemmingTrip.Db.Entities.Base;
 
 /// <summary>
-/// Роль аккаунта пользователя
+/// Role of the user's account
 /// </summary>
 public enum AccountRole
 {
     /// <summary>
-    /// Простой пользователь
+    /// Simple user (Tourist)
     /// </summary>
     Tourist,
-
     /// <summary>
-    /// Гид
+    /// Guide user
     /// </summary>
     Guide,
-
     /// <summary>
-    /// Администратор
+    /// Administrator user
     /// </summary>
     Administrator
 }

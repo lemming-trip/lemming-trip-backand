@@ -1,20 +1,20 @@
 namespace LemmingTrip.Db.Entities.Base;
 
 /// <summary>
-/// Тип путешествия
+/// Trip type
 /// </summary>
 public enum TripType
 {
     /// <summary>
-    /// Индивидуальное путешествие
+    /// Individual trip
     /// </summary>
     Individual,
     /// <summary>
-    /// Путешествие в группе
+    /// Group trip
     /// </summary>
     Group,
     /// <summary>
-    /// Индивидуальное или групповое путешествие
+    /// Individual or group trip
     /// </summary>
     IndividualOrGroup
 }
