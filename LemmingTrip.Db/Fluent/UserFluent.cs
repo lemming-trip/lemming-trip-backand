@@ -29,40 +29,34 @@ public static class UserFluent
             user
                 .Property(e => e.Avatar)
                 .HasColumnName("avatar")
-                .HasColumnType("varchar")
-                .HasMaxLength(2000)
-                .HasComment("Avatar (Image)");
+                .HasColumnType("varchar(30)")
+                .HasComment("Avatar image");
             
             user
                 .Property(e => e.Phone)
                 .HasColumnName("phone")
-                .HasColumnType("varchar")
-                .HasMaxLength(100)
+                .HasColumnType("varchar(50)")
                 .HasComment("Phone");
             
             user
                 .Property(e => e.Address)
                 .HasColumnName("address")
-                .HasColumnType("varchar")
-                .HasMaxLength(2000)
+                .HasColumnType("varchar(512)")
                 .HasComment("Address");
             
             user
                 .Property(e => e.FirstName)
-                .HasColumnType("varchar")
-                .HasMaxLength(100)
+                .HasColumnType("varchar(50)")
                 .HasComment("First name");
             
             user
                 .Property(e => e.LastName)
-                .HasColumnType("varchar")
-                .HasMaxLength(100)
+                .HasColumnType("varchar(50)")
                 .HasComment("Last name");
             
             user
                 .Property(e => e.MiddleName)
-                .HasColumnType("varchar")
-                .HasMaxLength(100)
+                .HasColumnType("varchar(50)")
                 .HasComment("Middle name");
             
             user

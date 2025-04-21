@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using LemmingTrip.Db.Entities;
+using LemmingTrip.Db.Fluent;
 
 namespace LemmingTrip.Db;
 
@@ -16,6 +17,13 @@ public class LemmingTripDbContext(DbContextOptions<LemmingTripDbContext> options
     /// User table
     /// </summary>
     public DbSet<User> Users { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    { 
+        modelBuilder.User();
+        modelBuilder.Account();
+    }
+    
     /// <summary>
     /// Trip table
     /// </summary>

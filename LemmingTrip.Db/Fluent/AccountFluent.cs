@@ -28,21 +28,21 @@ public static class AccountFluent
             
             account
                 .Property(e=>e.AccountProvider)
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(12)")
                 .IsRequired()
                 .HasComment("Account provider. Google, Facebook, etc.");
 
             account
                 .Property(a => a.Password)
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(1024)")
                 .IsRequired()
-                .HasComment("Password (encrypted)");
+                .HasComment("Password encrypted");
 
             account
                 .Property(a => a.Salt)
                 .HasColumnType("integer")
                 .IsRequired()
-                .HasComment("Salt (for password hashing)");
+                .HasComment("Salt for password hashing");
 
             account
                 .Property(a => a.ActivationCode)
