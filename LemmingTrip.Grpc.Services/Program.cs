@@ -1,13 +1,19 @@
+using LemmingTrip.Db;
 using LemmingTrip.Grpc.Services.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddDbContextPool<LemmingTripDbContext>(opt =>
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("Default"),
+        o => o.UseNetTopologySuite()
+    ).UseSnakeCaseNamingConvention()
+);
+
 builder.Services.AddGrpc();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();
 app.MapGet("/",
     () =>

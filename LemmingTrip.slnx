@@ -6,8 +6,10 @@
     <File Path="lemming-trip.jpg" />
     <File Path="compose.yaml" />
     <File Path=".dockerignore" />
+    <File Path="migrate.sh" />
   </Folder>
   <Project Path="LemmingTrip.Common/LemmingTrip.Common.csproj" />
   <Project Path="LemmingTrip.Db/LemmingTrip.Db.csproj" />
   <Project Path="LemmingTrip.Grpc.Services\LemmingTrip.Grpc.Services.csproj" Type="Classic C#" />
+  <Project Path="LemmingTrip.Services\LemmingTrip.Services.csproj" Type="Classic C#" />
 </Solution>

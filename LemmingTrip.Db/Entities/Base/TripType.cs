@@ -9,10 +9,12 @@ public enum TripType
     /// Individual trip
     /// </summary>
     Individual,
+
     /// <summary>
     /// Group trip
     /// </summary>
     Group,
+
     /// <summary>
     /// Individual or group trip
     /// </summary>

@@ -1,4 +1,3 @@
-
 namespace LemmingTrip.Db.Entities.Base;
 
 /// <summary>
@@ -10,10 +9,12 @@ public enum TripSearchType
     /// Find a team
     /// </summary>
     Team,
+
     /// <summary>
     /// Find a guide
     /// </summary>
     Guide,
+
     /// <summary>
     /// Find a sponsor
     /// </summary>

@@ -8,47 +8,48 @@ namespace LemmingTrip.Db.Entities;
 public class Account
 {
     /// <summary>
-    /// User's account id
+    /// Account id
     /// </summary>
     public Guid Id { get; set; }
 
     /// <summary>
-    /// Email address
+    /// User id
     /// </summary>
-    public string Email { get; set; } = null!;
+    public Guid UserId { get; set; }
 
     /// <summary>
-    /// Password (encrypted)
+    /// Account provider. Google, Facebook, etc.
+    /// </summary>
+    public AccountProvider AccountProvider { get; set; }
+
+    /// <summary>
+    /// Password (encrypted). Only for local authentication
     /// </summary>
     public string Password { get; set; } = null!;
 
     /// <summary>
-    /// Solt (for password hashing)
+    /// Solt (for password hashing). Only for local authentication
     /// </summary>
     public int Salt { get; set; }
 
     /// <summary>
-    /// User's account role
-    /// </summary>
-    public AccountRole AccountRole { get; set; }
-    
-    /// <summary>
-    /// Is account active
-    /// </summary>
-    public bool IsActive { get; set; }
-
-    /// <summary>
-    /// Activation code
+    /// Activation code. Only for local authentication
     /// </summary>
     public Guid ActivationCode { get; set; }
+
+    /// <summary>
+    /// Is the account verified? After confirmation of the email for local authentication, or
+    /// OAuth authentication.
+    /// </summary>
+    public Boolean IsVerified { get; set; }
     
     /// <summary>
-    /// Registration date
+    /// Last login date
     /// </summary>
-    public DateTime RegistrationDate { get; set; }
+    public DateTime? LastLoginAt { get; set; }
 
     /// <summary>
     /// Relationship with User table
     /// </summary>
-    public User? User { get; set; }
+    public User User { get; set; } = null!;
 }

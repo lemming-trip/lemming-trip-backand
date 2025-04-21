@@ -20,22 +20,17 @@ public static class AccountFluent
             account.ToTable(t => { t.HasComment("Account of user"); });
 
             account
-                .HasOne(p => p.User)
-                .WithOne(p => p.Account)
-                .HasForeignKey<User>(p => p.UserId);
-
-            account
                 .Property(p => p.Id)
                 .HasColumnType("uuid")
                 .HasDefaultValueSql("gen_random_uuid()")
                 .IsRequired()
                 .HasComment("Id of account");
-
+            
             account
-                .Property(a => a.Email)
+                .Property(e=>e.AccountProvider)
                 .HasColumnType("varchar")
                 .IsRequired()
-                .HasComment("Post address");
+                .HasComment("Account provider. Google, Facebook, etc.");
 
             account
                 .Property(a => a.Password)
@@ -50,29 +45,21 @@ public static class AccountFluent
                 .HasComment("Salt (for password hashing)");
 
             account
-                .Property(a => a.IsActive)
-                .HasColumnType("bool")
-                .IsRequired()
-                .HasComment("Is account active or not");
-
-            account
                 .Property(a => a.ActivationCode)
                 .HasColumnType("uuid")
                 .IsRequired()
                 .HasComment("Activation code. Send by email and accepted by user");
 
             account
-                .Property(a => a.RegistrationDate)
-                .HasColumnName("registration_date")
+                .Property(a => a.IsVerified)
+                .HasColumnName("is_verified")
+                .HasColumnType("boolean")
                 .IsRequired()
-                .HasComment("Registration date of user account");
+                .HasComment("Verified account");
 
             account
-                .Property(a => a.AccountRole)
-                .HasConversion<string>()
-                .HasColumnType("varchar")
-                .IsRequired()
-                .HasComment("Post address");
+                .Property(a => a.LastLoginAt)
+                .HasComment("Last login date");
         });
 
         return modelBuilder;

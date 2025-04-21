@@ -20,55 +20,65 @@ public static class UserFluent
             user.ToTable(t => { t.HasComment("User"); });
 
             user
-                .Property(p => p.UserId)
-                .HasColumnName("user_id")
+                .Property(e => e.Id)
                 .HasColumnType("uuid")
                 .HasDefaultValueSql("gen_random_uuid()")
                 .IsRequired()
                 .HasComment("Id of user");
             
             user
-                .Property(a => a.Avatar)
+                .Property(e => e.Avatar)
                 .HasColumnName("avatar")
                 .HasColumnType("varchar")
+                .HasMaxLength(2000)
                 .HasComment("Avatar (Image)");
             
             user
-                .Property(a => a.Phone)
+                .Property(e => e.Phone)
                 .HasColumnName("phone")
                 .HasColumnType("varchar")
+                .HasMaxLength(100)
                 .HasComment("Phone");
             
             user
-                .Property(a => a.Address)
+                .Property(e => e.Address)
                 .HasColumnName("address")
                 .HasColumnType("varchar")
+                .HasMaxLength(2000)
                 .HasComment("Address");
             
             user
-                .Property(p => p.FirstName)
+                .Property(e => e.FirstName)
                 .HasColumnType("varchar")
+                .HasMaxLength(100)
                 .HasComment("First name");
             
             user
-                .Property(p => p.LastName)
+                .Property(e => e.LastName)
                 .HasColumnType("varchar")
+                .HasMaxLength(100)
                 .HasComment("Last name");
             
             user
-                .Property(p => p.MiddleName)
+                .Property(e => e.MiddleName)
                 .HasColumnType("varchar")
+                .HasMaxLength(100)
                 .HasComment("Middle name");
             
             user
-                .Property(p => p.DateBirth)
+                .Property(e => e.DateBirth)
                 .HasComment("Birth date");
             
             user
-                .Property(a => a.Description)
+                .Property(e => e.Description)
                 .HasColumnName("description")
                 .HasColumnType("text")
                 .HasComment("Description");
+            
+            user.HasMany(e=>e.Accounts)
+                .WithOne(e=>e.User)
+                .HasForeignKey(e=>e.UserId)
+                .HasConstraintName("Relationship between User and Account tables. One to many.");
 
         });
 
