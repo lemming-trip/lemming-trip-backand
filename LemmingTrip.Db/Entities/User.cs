@@ -11,17 +11,17 @@ public class User
     /// User id
     /// </summary>
     public Guid Id { get; set; }
-    
+
     /// <summary>
     /// Email address
     /// </summary>
     public string Email { get; set; } = null!;
-    
+
     /// <summary>
     /// Is the account active?
     /// </summary>
     public bool IsActive { get; set; }
-    
+
     /// <summary>
     /// User's account role
     /// </summary>
@@ -95,5 +95,5 @@ public class User
     /// <summary>
     /// Relationship with the Trip table
     /// </summary>
-    // public ICollection<Trip> Trips { get; } = new List<Trip>();
+    public ICollection<Trip>? Trips { get; }
 }

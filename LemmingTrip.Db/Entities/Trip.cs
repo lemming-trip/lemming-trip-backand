@@ -51,12 +51,12 @@ public class Trip
     /// <summary>
     /// Trip rating
     /// </summary>
-    public int Rating { get; set; }
+    public ushort Rating { get; set; }
 
     /// <summary>
-    /// Likes count
+    /// Like count
     /// </summary>
-    public int Likes { get; set; }
+    public uint Likes { get; set; }
 
     /// <summary>
     /// Trip's type
@@ -67,7 +67,7 @@ public class Trip
     /// Trip's search type
     /// </summary>
     public TripSearchType TripSearchType { get; set; }
-    
+
     /// <summary>
     /// Relationship with User table
     /// </summary>
