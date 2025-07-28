@@ -7,16 +7,35 @@ package db
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const getAuthor = `-- name: GetAuthor :one
-SELECT id, name, bio FROM authors
+SELECT id, email, is_active, account_role, avatar, phone, city, address, first_name, last_name, middle_name, date_birth, description, created_at, updated_at, last_seen_at FROM users
 WHERE id = $1 LIMIT 1
 `
 
-func (q *Queries) GetAuthor(ctx context.Context, id int64) (Author, error) {
+func (q *Queries) GetAuthor(ctx context.Context, id pgtype.UUID) (User, error) {
 	row := q.db.QueryRow(ctx, getAuthor, id)
-	var i Author
-	err := row.Scan(&i.ID, &i.Name, &i.Bio)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Email,
+		&i.IsActive,
+		&i.AccountRole,
+		&i.Avatar,
+		&i.Phone,
+		&i.City,
+		&i.Address,
+		&i.FirstName,
+		&i.LastName,
+		&i.MiddleName,
+		&i.DateBirth,
+		&i.Description,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.LastSeenAt,
+	)
 	return i, err
 }

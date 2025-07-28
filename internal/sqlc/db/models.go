@@ -8,8 +8,66 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
-type Author struct {
-	ID   int64
-	Name string
-	Bio  pgtype.Text
+type Account struct {
+	ID              pgtype.UUID
+	UserID          pgtype.UUID
+	AccountProvider interface{}
+	Password        string
+	Salt            int32
+	ActivationCode  pgtype.UUID
+	IsVerified      bool
+	LastLoginAt     pgtype.Timestamptz
+}
+
+type Trip struct {
+	ID             pgtype.UUID
+	UserID         pgtype.UUID
+	Title          string
+	Text           pgtype.Text
+	TitleImage     pgtype.Text
+	Images         []string
+	VideoLink      pgtype.Text
+	Route          []byte
+	Rating         int16
+	Likes          int32
+	TripType       interface{}
+	TripSearchType interface{}
+	CreatedAt      pgtype.Timestamptz
+	UpdatedAt      pgtype.Timestamptz
+}
+
+type TripReply struct {
+	ID        pgtype.UUID
+	TripID    pgtype.UUID
+	UserID    pgtype.UUID
+	CreatedAt pgtype.Timestamptz
+}
+
+type TripReplyMessage struct {
+	ID              pgtype.UUID
+	TripReplyID     pgtype.UUID
+	UserID          pgtype.UUID
+	Text            string
+	Images          []string
+	CreatedDatetime pgtype.Timestamptz
+	IsRead          bool
+}
+
+type User struct {
+	ID          pgtype.UUID
+	Email       string
+	IsActive    bool
+	AccountRole string
+	Avatar      pgtype.Text
+	Phone       pgtype.Text
+	City        pgtype.Text
+	Address     pgtype.Text
+	FirstName   pgtype.Text
+	LastName    pgtype.Text
+	MiddleName  pgtype.Text
+	DateBirth   pgtype.Timestamptz
+	Description pgtype.Text
+	CreatedAt   pgtype.Timestamptz
+	UpdatedAt   pgtype.Timestamptz
+	LastSeenAt  pgtype.Timestamptz
 }
