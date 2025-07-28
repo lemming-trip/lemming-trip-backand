@@ -1,7 +1,0 @@
-﻿services:
-  lemmingtrip.grpc.services:
-    image: lemmingtrip.grpc.services
-    build:
-      context: .
-      dockerfile: LemmingTrip.Grpc.Services/Dockerfile
-
