@@ -12,10 +12,12 @@ import (
 )
 
 const getAuthor = `-- name: GetAuthor :one
-SELECT id, email, is_active, account_role, avatar, phone, city, address, first_name, last_name, middle_name, date_birth, description, created_at, updated_at, last_seen_at FROM users
+
+SELECT id, email, is_active, user_role, avatar, phone, city, address, first_name, last_name, middle_name, date_birth, description, created_at, updated_at, last_seen_at FROM users
 WHERE id = $1 LIMIT 1
 `
 
+// noinspection SqlResolveForFile
 func (q *Queries) GetAuthor(ctx context.Context, id pgtype.UUID) (User, error) {
 	row := q.db.QueryRow(ctx, getAuthor, id)
 	var i User
@@ -23,7 +25,7 @@ func (q *Queries) GetAuthor(ctx context.Context, id pgtype.UUID) (User, error) {
 		&i.ID,
 		&i.Email,
 		&i.IsActive,
-		&i.AccountRole,
+		&i.UserRole,
 		&i.Avatar,
 		&i.Phone,
 		&i.City,

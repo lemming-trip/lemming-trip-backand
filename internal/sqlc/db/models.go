@@ -5,18 +5,204 @@
 package db
 
 import (
+	"database/sql/driver"
+	"fmt"
+
 	"github.com/jackc/pgx/v5/pgtype"
 )
+
+type AccountProvider string
+
+const (
+	AccountProviderLocal     AccountProvider = "Local"
+	AccountProviderGoogle    AccountProvider = "Google"
+	AccountProviderFacebook  AccountProvider = "Facebook"
+	AccountProviderMicrosoft AccountProvider = "Microsoft"
+	AccountProviderApple     AccountProvider = "Apple"
+)
+
+func (e *AccountProvider) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = AccountProvider(s)
+	case string:
+		*e = AccountProvider(s)
+	default:
+		return fmt.Errorf("unsupported scan type for AccountProvider: %T", src)
+	}
+	return nil
+}
+
+type NullAccountProvider struct {
+	AccountProvider AccountProvider
+	Valid           bool // Valid is true if AccountProvider is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullAccountProvider) Scan(value interface{}) error {
+	if value == nil {
+		ns.AccountProvider, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.AccountProvider.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullAccountProvider) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.AccountProvider), nil
+}
+
+type TripSearchType string
+
+const (
+	TripSearchTypeTeam    TripSearchType = "Team"
+	TripSearchTypeGuide   TripSearchType = "Guide"
+	TripSearchTypeSponsor TripSearchType = "Sponsor"
+)
+
+func (e *TripSearchType) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = TripSearchType(s)
+	case string:
+		*e = TripSearchType(s)
+	default:
+		return fmt.Errorf("unsupported scan type for TripSearchType: %T", src)
+	}
+	return nil
+}
+
+type NullTripSearchType struct {
+	TripSearchType TripSearchType
+	Valid          bool // Valid is true if TripSearchType is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullTripSearchType) Scan(value interface{}) error {
+	if value == nil {
+		ns.TripSearchType, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.TripSearchType.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullTripSearchType) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.TripSearchType), nil
+}
+
+type TripType string
+
+const (
+	TripTypeIndividual        TripType = "Individual"
+	TripTypeGroup             TripType = "Group"
+	TripTypeIndividualOrGroup TripType = "IndividualOrGroup"
+)
+
+func (e *TripType) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = TripType(s)
+	case string:
+		*e = TripType(s)
+	default:
+		return fmt.Errorf("unsupported scan type for TripType: %T", src)
+	}
+	return nil
+}
+
+type NullTripType struct {
+	TripType TripType
+	Valid    bool // Valid is true if TripType is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullTripType) Scan(value interface{}) error {
+	if value == nil {
+		ns.TripType, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.TripType.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullTripType) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.TripType), nil
+}
+
+type UserRole string
+
+const (
+	UserRoleTourist       UserRole = "Tourist"
+	UserRoleGuide         UserRole = "Guide"
+	UserRoleAdministrator UserRole = "Administrator"
+)
+
+func (e *UserRole) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = UserRole(s)
+	case string:
+		*e = UserRole(s)
+	default:
+		return fmt.Errorf("unsupported scan type for UserRole: %T", src)
+	}
+	return nil
+}
+
+type NullUserRole struct {
+	UserRole UserRole
+	Valid    bool // Valid is true if UserRole is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullUserRole) Scan(value interface{}) error {
+	if value == nil {
+		ns.UserRole, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.UserRole.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullUserRole) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.UserRole), nil
+}
 
 type Account struct {
 	ID              pgtype.UUID
 	UserID          pgtype.UUID
-	AccountProvider interface{}
+	AccountProvider AccountProvider
 	Password        string
 	Salt            int32
 	ActivationCode  pgtype.UUID
 	IsVerified      bool
 	LastLoginAt     pgtype.Timestamptz
+}
+
+type Message struct {
+	ID          pgtype.UUID
+	SenderID    pgtype.UUID
+	RecipientID pgtype.UUID
+	Content     string
+	CreatedAt   pgtype.Timestamptz
+	IsRead      bool
 }
 
 type Trip struct {
@@ -30,34 +216,38 @@ type Trip struct {
 	Route          []byte
 	Rating         int16
 	Likes          int32
-	TripType       interface{}
-	TripSearchType interface{}
+	TripType       TripType
+	TripSearchType TripSearchType
 	CreatedAt      pgtype.Timestamptz
 	UpdatedAt      pgtype.Timestamptz
+}
+
+type TripComment struct {
+	ID        pgtype.UUID
+	TripID    pgtype.UUID
+	UserID    pgtype.UUID
+	ParentID  pgtype.UUID
+	Text      string
+	CreatedAt pgtype.Timestamptz
+	IsRead    bool
+	IsDeleted bool
 }
 
 type TripReply struct {
 	ID        pgtype.UUID
 	TripID    pgtype.UUID
 	UserID    pgtype.UUID
+	Text      string
+	Images    []string
+	IsRead    bool
 	CreatedAt pgtype.Timestamptz
-}
-
-type TripReplyMessage struct {
-	ID              pgtype.UUID
-	TripReplyID     pgtype.UUID
-	UserID          pgtype.UUID
-	Text            string
-	Images          []string
-	CreatedDatetime pgtype.Timestamptz
-	IsRead          bool
 }
 
 type User struct {
 	ID          pgtype.UUID
 	Email       string
 	IsActive    bool
-	AccountRole string
+	UserRole    UserRole
 	Avatar      pgtype.Text
 	Phone       pgtype.Text
 	City        pgtype.Text
