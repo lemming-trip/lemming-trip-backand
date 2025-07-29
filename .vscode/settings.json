@@ -1,5 +1,17 @@
 {
     "workbench.colorCustomizations": {
         "list.focusOutline": "#00000000"
-    }
+    },
+    "go.useLanguageServer": true,
+    "go.autocompleteUnimportedPackages": true,
+    "go.formatTool": "goimports",
+    "[go]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+            "source.fixAll": "explicit"
+        }
+    },
+
+    "editor.fontSize": 13
 }
