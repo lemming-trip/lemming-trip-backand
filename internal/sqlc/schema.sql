@@ -145,7 +145,7 @@ CREATE INDEX idx_security_audit_created_at ON security_audit_log (created_at);
 CREATE INDEX idx_security_audit_event_type ON security_audit_log (event_type);
 
 -- Table for GDPR
-CREATE TABLE IF NOT EXISTS user_consents
+CREATE TABLE IF NOT EXISTS gdpr_consents
 (
     id           UUID PRIMARY KEY           DEFAULT gen_random_uuid(),
     user_id      UUID              NOT NULL REFERENCES users (id) ON DELETE CASCADE,
@@ -157,8 +157,8 @@ CREATE TABLE IF NOT EXISTS user_consents
     created_at   TIMESTAMPTZ       NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX idx_user_consents_user_id ON user_consents (user_id);
-CREATE INDEX idx_user_consents_type ON user_consents (consent_type);
+CREATE INDEX idx_gdpr_consents_user_id ON gdpr_consents (user_id);
+CREATE INDEX idx_gdpr_consents_type ON gdpr_consents (consent_type);
 
 -- Create a "trips" table
 CREATE TABLE IF NOT EXISTS trips
