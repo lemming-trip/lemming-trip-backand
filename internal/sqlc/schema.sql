@@ -219,8 +219,12 @@ CREATE TABLE IF NOT EXISTS messages
     sender_id    UUID        NOT NULL REFERENCES users (id) ON DELETE CASCADE,
     recipient_id UUID        NOT NULL REFERENCES users (id) ON DELETE CASCADE,
     content      TEXT        NOT NULL,
+    attachments  TEXT[],
+    is_read      BOOLEAN     NOT NULL DEFAULT FALSE,
+    is_edited    BOOLEAN     NOT NULL DEFAULT FALSE,
     created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    is_read      BOOLEAN     NOT NULL DEFAULT FALSE
+    updated_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    deleted_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE INDEX IF NOT EXISTS idx_messages_sender_id ON messages (sender_id);
