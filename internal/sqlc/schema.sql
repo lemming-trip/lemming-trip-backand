@@ -117,7 +117,8 @@ CREATE TABLE IF NOT EXISTS user_sessions
     expires_at    TIMESTAMPTZ NOT NULL,
     last_activity TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    revoked_at    TIMESTAMPTZ
+    revoked_at    TIMESTAMPTZ,
+    is_active     BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE INDEX idx_user_sessions_token ON user_sessions (session_token)
