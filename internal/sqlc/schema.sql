@@ -235,13 +235,15 @@ CREATE INDEX IF NOT EXISTS idx_trip_comments_parent_id ON trip_comments (parent_
 -- Create a "trip_replies" table
 CREATE TABLE IF NOT EXISTS trip_replies
 (
-    id         UUID PRIMARY KEY     DEFAULT gen_random_uuid(),
-    trip_id    UUID        NOT NULL REFERENCES trips (id),
-    user_id    UUID        NOT NULL REFERENCES users (id),
-    text       TEXT        NOT NULL,
-    images     TEXT[],
-    is_read    BOOLEAN     NOT NULL,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    id          UUID PRIMARY KEY     DEFAULT gen_random_uuid(),
+    trip_id     UUID        NOT NULL REFERENCES trips (id),
+    user_id     UUID        NOT NULL REFERENCES users (id),
+    text        TEXT        NOT NULL,
+    images      TEXT[],
+    is_read     BOOLEAN     NOT NULL,
+    is_selected BOOLEAN     NOT NULL DEFAULT FALSE,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 CREATE INDEX IF NOT EXISTS idx_trip_replies_trip_id ON trip_replies (trip_id);
 CREATE INDEX IF NOT EXISTS idx_trip_replies_user_id ON trip_replies (user_id);
