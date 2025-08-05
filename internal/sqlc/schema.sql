@@ -181,6 +181,40 @@ CREATE TABLE IF NOT EXISTS trips
 );
 CREATE INDEX IF NOT EXISTS idx_trips_user_id ON trips (user_id);
 
+-- Create a "trip_likes" table
+CREATE TABLE IF NOT EXISTS trip_likes (
+    id         UUID PRIMARY KEY     DEFAULT gen_random_uuid(),
+    trip_id    UUID NOT NULL REFERENCES trips (id) ON DELETE CASCADE,
+    user_id    UUID NOT NULL REFERENCES users (id) ON DELETE CASCADE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE (trip_id, user_id)
+);
+CREATE INDEX IF NOT EXISTS idx_trip_likes_trip_id ON trip_likes (trip_id);
+CREATE INDEX IF NOT EXISTS idx_trip_likes_user_id ON trip_likes (user_id);
+
+-- Create a "trip_ratings" table
+CREATE TABLE IF NOT EXISTS trip_ratings (
+    id         UUID PRIMARY KEY     DEFAULT gen_random_uuid(),
+    trip_id    UUID NOT NULL REFERENCES trips (id) ON DELETE CASCADE,
+    user_id    UUID NOT NULL REFERENCES users (id) ON DELETE CASCADE,
+    rating     SMALLINT NOT NULL CHECK (rating >= 1 AND rating <= 5),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE (trip_id, user_id)
+);
+CREATE INDEX IF NOT EXISTS idx_trip_ratings_trip_id ON trip_ratings (trip_id);
+CREATE INDEX IF NOT EXISTS idx_trip_ratings_user_id ON trip_ratings (user_id);
+
+-- Create a "trip_views" table
+CREATE TABLE IF NOT EXISTS trip_views (
+    id         UUID PRIMARY KEY     DEFAULT gen_random_uuid(),
+    trip_id    UUID NOT NULL REFERENCES trips (id) ON DELETE CASCADE,
+    user_id    UUID REFERENCES users (id) ON DELETE CASCADE, -- может быть NULL для анонимных просмотров
+    viewed_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS idx_trip_views_trip_id ON trip_views (trip_id);
+CREATE INDEX IF NOT EXISTS idx_trip_views_user_id ON trip_views (user_id);
+
 -- Create a "trip_comments" table
 CREATE TABLE IF NOT EXISTS trip_comments
 (
@@ -226,6 +260,5 @@ CREATE TABLE IF NOT EXISTS messages
     updated_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     deleted_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
-
 CREATE INDEX IF NOT EXISTS idx_messages_sender_id ON messages (sender_id);
 CREATE INDEX IF NOT EXISTS idx_messages_recipient_id ON messages (recipient_id);
