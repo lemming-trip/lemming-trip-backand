@@ -1,5 +1,5 @@
 -- ACCOUNT_PROVIDER ENUM
-CREATE TYPE ACCOUNT_PROVIDER AS ENUM ('local','google','facebook','microsoft','apple','gitHub','discord','telegram','linkedIn','twitter','yandex');
+CREATE TYPE ACCOUNT_PROVIDER AS ENUM ('local','google','facebook','microsoft','apple','github','discord','telegram');
 -- USER_ROLE ENUM
 CREATE TYPE USER_ROLE AS ENUM ('tourist','guide','administrator');
 -- TRIP_TYPE ENUM
