@@ -1,12 +1,12 @@
 version: v2
 managed:
   enabled: true
-  disable:
-    - module: buf.build/googleapis/googleapis
-      path: google/api/annotations.proto
-  override:
-    - file_option: go_package_prefix
-      value: github.com/valeravorobjev/lemming-trip/internal/gen
+#  disable:
+#    - module: buf.build/googleapis/googleapis
+#      path: google/proto/annotations.proto
+#  override:
+#    - file_option: go_package_prefix
+#      value: github.com/valeravorobjev/lemming-trip/internal/gen
 plugins:
   # Go protobuf
   - local: protoc-gen-go

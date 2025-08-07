@@ -5,15 +5,17 @@ import (
 	"log"
 	"net"
 
+	"github.com/google/uuid"
 	"google.golang.org/grpc"
+	"google.golang.org/protobuf/types/known/timestamppb"
 
-	modelsv1 "github.com/valeravorobjev/lemming-trip/internal/gen/lemmingtrip/models/v1"
-	servicesv1 "github.com/valeravorobjev/lemming-trip/internal/gen/lemmingtrip/services/v1"
+	modelsv1 "github.com/valeravorobjev/lemming-trip/internal/gen/models/v1"
+	servicesv1 "github.com/valeravorobjev/lemming-trip/internal/gen/services/v1"
 )
 
 // Реализация сервера
 type lemmingTripServer struct {
-	servicesv1.UnimplementedLemmingTripServiceServer
+	servicesv1.UnimplementedTripServiceServer
 }
 
 // Реализация метода CreateUser
@@ -23,11 +25,36 @@ func (s *lemmingTripServer) CreateUser(ctx context.Context, req *modelsv1.Create
 	// Здесь будет ваша бизнес-логика
 	// Например, создание пользователя в базе данных
 
-	// Пример ответа
+	// Create new user from request data
+	user := &modelsv1.User{
+		Id:          uuid.New().String(),
+		Email:       req.Email,
+		IsActive:    req.IsActive,
+		UserRole:    req.UserRole,
+		Avatar:      req.Avatar,
+		Phone:       req.Phone,
+		City:        req.City,
+		Address:     req.Address,
+		FirstName:   req.FirstName,
+		LastName:    req.LastName,
+		MiddleName:  req.MiddleName,
+		DateBirth:   req.DateBirth,
+		Description: req.Description,
+		Ban:         false,
+		CreatedAt:   timestamppb.Now(),
+		UpdatedAt:   timestamppb.Now(),
+		LastSeenAt:  timestamppb.Now(),
+		PrivacySettings: &modelsv1.PrivacySettings{
+			ProfileVisible: true,
+			EmailVisible:   false,
+		},
+		Preferences: &modelsv1.UserPreferences{
+			Preferences: make(map[string]string),
+		},
+	}
+
 	response := &modelsv1.CreateUserResponse{
-		Id:    12345,
-		Name:  "John Doe",
-		Email: "john.doe@lemmingtrip.com",
+		User: user,
 	}
 
 	log.Printf("Sending CreateUser response: %+v", response)
@@ -52,7 +79,7 @@ func main() {
 
 	// Регистрация нашего сервиса
 	lemmingTripSrv := &lemmingTripServer{}
-	servicesv1.RegisterLemmingTripServiceServer(server, lemmingTripSrv)
+	servicesv1.RegisterTripServiceServer(server, lemmingTripSrv)
 
 	if err := server.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve gRPC server: %v", err)
