@@ -1,4 +1,4 @@
 [submodule "proto/lemmingtrip"]
 	path = proto/lemmingtrip
 	url = https://github.com/lemming-trip/lemming-trip-proto
-	branch = main
+	branch = future-first
