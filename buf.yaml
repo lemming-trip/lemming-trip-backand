@@ -1,6 +1,6 @@
 version: v2
 modules:
-  - path: proto
+  - path: proto/lemmingtrip
     name: buf.build/lemmingtrip/lemming-trip-proto
 lint:
   use:
