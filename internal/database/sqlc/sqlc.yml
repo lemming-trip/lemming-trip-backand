@@ -5,5 +5,5 @@ sql:
     schema: "schema.sql"
     gen:
       go:
-        out: "db/"
+        out: "models/"
         sql_package: "pgx/v5"
