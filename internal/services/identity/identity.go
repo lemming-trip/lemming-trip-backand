@@ -51,9 +51,9 @@ func (s *Service) RegisterLocal(ctx context.Context, req *identitypb.RegisterLoc
 }
 
 func (s *Service) LoginLocal(ctx context.Context, req *identitypb.LoginLocalRequest) (*identitypb.LoginResponse, error) {
-	s.logger.Info("login local identity", "email", req.Email)
+	s.logger.Info("login local identity", "login", req.Login)
 
-	if req.Email == "" {
+	if req.Login == "" {
 		return nil, status.Error(codes.InvalidArgument, "email is required")
 	}
 
@@ -71,7 +71,7 @@ func (s *Service) LoginLocal(ctx context.Context, req *identitypb.LoginLocalRequ
 	return &identitypb.LoginResponse{
 		Identity: &identitypb.Identity{
 			Id:    "user-uuid",
-			Email: req.Email,
+			Email: req.Login,
 		},
 		AccessToken:  "generated-access-token",
 		RefreshToken: "generated-refresh-token",
@@ -80,16 +80,16 @@ func (s *Service) LoginLocal(ctx context.Context, req *identitypb.LoginLocalRequ
 }
 
 func (s *Service) GetIdentity(ctx context.Context, req *identitypb.GetIdentityRequest) (*identitypb.GetIdentityResponse, error) {
-	s.logger.Info("getting identity", "id", req.Id)
+	s.logger.Info("getting identity", "id", req.IdentityId)
 
-	if req.Id == "" {
+	if req.IdentityId == "" {
 		return nil, status.Error(codes.InvalidArgument, "identity id is required")
 	}
 
 	// TODO: Запросить пользователя из базы данных
 	return &identitypb.GetIdentityResponse{
 		Identity: &identitypb.Identity{
-			Id:    req.Id,
+			Id:    req.IdentityId,
 			Email: "user@example.com",
 		},
 	}, nil
@@ -118,7 +118,7 @@ func (s *Service) ChangePassword(ctx context.Context, req *identitypb.ChangePass
 }
 
 func (s *Service) Logout(ctx context.Context, req *identitypb.LogoutRequest) (*identitypb.LogoutResponse, error) {
-	s.logger.Info("logout", "session_token", req.SessionToken)
+	s.logger.Info("logout", "session_id", req.SessionId)
 
 	// TODO: Инвалидировать сессию
 	return &identitypb.LogoutResponse{
